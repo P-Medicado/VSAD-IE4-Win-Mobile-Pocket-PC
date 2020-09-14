@@ -63,6 +63,9 @@ simple demonstrations:
 ## A demo to compare for @leasj y @mm64
 github pages go brrr (but my ppc nah can use my wifi) ~  
   
+also for paint this will make the table grid better.
+`div.insertAdjacentHTML("beforeend","<style>.board tr a {height: 78px;}</style>")`
+  
 ***
   
 To start, let's look at some JS: 
