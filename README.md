@@ -114,7 +114,7 @@ var feels = {
     }
 }
 ```
-*from ./link/chess.js*  
+*from ./link/happy.js*  
   
 Objects can hold functions within them.  
 They functions can even take parameters -  
