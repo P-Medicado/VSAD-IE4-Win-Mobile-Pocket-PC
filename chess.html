@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess</title>
+    <link rel="stylesheet" href="./css/td-btn.css">
+    <!-- <script src="./lib/blank.js"></script> -->
+    <!-- <script src="./link/chess.js"></script> -->
+</head>
+<style>
+    body {
+        margin: 0;
+    }
+    table.board {
+        width: 100%;
+        border: none;
+        border-collapse: collapse;
+    }
+    .board td {
+        border: none;
+        width: 12.5%;
+        height: 1em;
+        background: black;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+    }
+    .board td.w {
+        background: #ddd;
+        color: #222;
+    }
+    .board td a {
+        display: block;
+        text-decoration: none;
+    }
+</style>
+<script>
+    document.onerror = function() {
+        alert("error")
+        // alert(window.event)
+    }
+    document.body.onkeypress = function(ev) {
+        // var unk = window.event
+        alert("Keypress")
+    }
+    window["err"].onmousedown = function(ev) {
+        // var unk = window.event
+        alert("Mousedown")
+    }
+</script>
+<body>
+    <table class="board">
+        <tr>
+            <td><div id="d_0"><p>X</p></div></td> <td class="w"><div id="d_1"></div></td> 
+            <td><div id="d_2"></div></td> <td class="w"><div id="d_3"></div></td>
+            <td><div id="d_4"></div></td> <td class="w"><div id="d_5"></div></td> 
+            <td><div id="d_6"></div></td> <td class="w"><div id="d_7"></div></td>
+        </tr>
+        <tr>
+            <td class="w"><div id="d_8"></div></td> <td><div id="d_9"></div></td> 
+            <td class="w"><div id="d_10"></div></td> <td><div id="d_11"></div></td>
+            <td class="w"><div id="d_12"></div></td> <td><div id="d_13"></div></td> 
+            <td class="w"><div id="d_14"></div></td> <td><div id="d_15"></div></td>
+        </tr>
+        <tr>
+            <td><div id="d_16"></div></td> <td class="w"><div id="d_17"></div></td> 
+            <td><div id="d_18"></div></td> <td class="w"><div id="d_19"></div></td>
+            <td><div id="d_20"></div></td> <td class="w"><div id="d_21"></div></td> 
+            <td><div id="d_22"></div></td> <td class="w"><div id="d_23"></div></td>
+        </tr>
+        <tr>
+            <td class="w"><div id="d_24"></div></td> <td><div id="d_25"></div></td> 
+            <td class="w"><div id="d_26"></div></td> <td><div id="d_27"></div></td>
+            <td class="w"><div id="d_28"></div></td> <td><div id="d_29"></div></td> 
+            <td class="w"><div id="d_30"></div></td> <td><div id="d_31"></div></td>
+        </tr>
+        <tr>
+            <td><div id="d_32"></div></td> <td class="w"><div id="d_33"></div></td> 
+            <td><div id="d_34"></div></td> <td class="w"><div id="d_35"></div></td>
+            <td><div id="d_36"></div></td> <td class="w"><div id="d_37"></div></td> 
+            <td><div id="d_38"></div></td> <td class="w"><div id="d_39"></div></td>
+        </tr>
+        <tr>
+            <td class="w"><div id="d_40"></div></td> <td><div id="d_41"></div></td> 
+            <td class="w"><div id="d_42"></div></td> <td><div id="d_43"></div></td>
+            <td class="w"><div id="d_44"></div></td> <td><div id="d_45"></div></td> 
+            <td class="w"><div id="d_46"></div></td> <td><div id="d_47"></div></td>
+        </tr>
+        <tr>
+            <td><div id="d_48"></div></td> <td class="w"><div id="d_49"></div></td> 
+            <td><div id="d_50"></div></td> <td class="w"><div id="d_51"></div></td>
+            <td><div id="d_52"></div></td> <td class="w"><div id="d_53"></div></td> 
+            <td><div id="d_54"></div></td> <td class="w"><div id="d_55"></div></td>
+        </tr>
+        <tr>
+            <td class="w"><div id="d_56"></div></td> <td><div id="d_57"></div></td> 
+            <td class="w"><div id="d_58"></div></td> <td><div id="d_59"></div></td>
+            <td class="w"><div id="d_60"></div></td> <td><div id="d_61"></div></td> 
+            <td class="w"><div id="d_62"></div></td> <td><div id="d_63"></div></td>
+        </tr>
+    </table>
+
+    <br><hr><br>
+
+    <table style="width: 100%;">
+        <tr style="width: 100%;">
+            <td class="btn">
+                <a href="#" onclick="start()">Start</a>
+            </td>
+            <td class="btn">
+                <a href="#" onclick="alert(window['d_0'].innerHTML)">New</a>
+            </td>
+        </tr>
+    </table>
+
+    <a href="#" id="err" onclick="sdufoisd()">Error</a>
+
+</body>
+</html>

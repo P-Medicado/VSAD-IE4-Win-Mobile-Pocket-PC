@@ -1,0 +1,28 @@
+
+td.btn {
+    padding: 0;
+    width: 50%;
+    vertical-align: middle;
+    padding: 1em;
+    text-align: center; 
+}
+td.btn a {
+    display: block;
+    color: black;
+    padding: 1em;
+    background: yellow;
+    outline: none;
+}
+td.btn a:focus {
+    outline: none;
+    border: 1px solid black;
+}
+td.btn a:active {
+    outline: none;
+    background: #eeee00;
+    border: 1px solid black;
+}
+
+tr.thirds td {
+    width: 33.333%;
+}
