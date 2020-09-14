@@ -63,6 +63,8 @@ simple demonstrations:
 ## A demo to compare for @leasj y @mm64
 github pages go brrr (but my ppc nah can use my wifi) ~  
   
+more references search: [ie 4 site:https://docstore.mik.ua/orelly/webprog/jscript](https://www.google.com/search?q=ie+4+site:https://docstore.mik.ua/orelly/webprog/jscript)
+
 also for paint this will make the table grid better.
 `div.insertAdjacentHTML("beforeend","<style>.board tr a {height: 78px;}</style>")`
   
