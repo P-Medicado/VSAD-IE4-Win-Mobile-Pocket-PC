@@ -14,26 +14,38 @@ How can I get started writing JavaScript for such an old OS? Is the JavaScript m
    
 > What is the IE 4 Inforepo?
 > ---
-> A collection of links, references, projects, &amp; human-readable tutorials for writing JavaScript web-apps for Internet Explorer 4 - common on most Pocket PCs from 2002 &amp; 2003.
+> A collection of links, references, projects,  
+> &amp; human-readable tutorials for writing  
+> JavaScript web-apps for Internet Explorer  
+> 4 - common on most Pocket PCs from 2002 &amp; 2003.
   
 ## 🔗&nbsp; Links 
 [IE 4's Unique DOM Objects ](https://www.tutorialspoint.com/javascript/javascript_ie4_dom.htm)
 
 > Summary
 > ---
-> IE 4 does not support `document.getElementById()` nor does it support `document.getElementsByTagName()`; alternatives are available. See article.
+> IE 4 does not support `document.getElementById()`  
+> nor does it support `document.getElementsByTagName()`;  
+> alternatives are available. See article.
   
 [IE 4 Does not have DHTML's MSFT HTC](https://web.archive.org/web/20070228155553/http://msdn.microsoft.com/workshop/components/htc/reference/htcref.asp)
 
 > Summary
 > ---
-> IE 4 does not have JavaScript HTML Components like `document` or `event fires`. This makes [DOM Prototype Emulation](https://web.archive.org/web/20070228234402/http://delete.me.uk/2004/09/ieproto.html) impossible.
+> IE 4 does not have JavaScript HTML Components  
+> like `document` or `event fires`. This makes 
+> [DOM Prototype Emulation](https://web.archive.org/web/20070228234402/http://delete.me.uk/2004/09/ieproto.html) impossible.
   
 [IE 4 supports modifying innerHTML while keeping event handlers](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML)
 
 > Summary
 > ---
-> When setting innerHTML, event handlers are destroyed. Using insertAdjacentHTML allows for safely modifying innerHTML. This is supported in IE 4. Important to note, **not every element supports this or innerHTML sets** - see article.
+> Even today, when setting innerHTML, event  
+> handlers are destroyed. Use insertAdjacentHTML  
+> to safely modify innerHTML. This is supported  
+> in IE 4. Important to note, **not every**  
+> **element supports this or innerHTML sets** - 
+> see article.
   
 Expired Links: 
 [https://www.worldtimzone.com/res/javascript/](https://www.worldtimzone.com/res/javascript/)
@@ -67,8 +79,9 @@ function inpt(id) {
 ```  
 *from ./lib/blank.js*
 
-Remember, there is no createElement in the document object. This will always run else. 
-But this if (along w the double var trick) will 
+Remember, there is no createElement  
+in the document object. This will always run else.  
+But this if (along w the double var trick) will  
 tell your IDE that inpt() returns an `<input>` element.
   
 Now we'll look at a smaller function: 
@@ -79,9 +92,13 @@ function num(id) {
 ```
 *from ./lib/blank.js*
   
-Here, we use our `inpt()` function to get an input. Then, use the `+` operator to tell our IDE that this function returns a `number`.
+Here, we use our `inpt()` function to get  
+an input. Then, use the `+` operator to tell  
+our IDE that this function returns a `number`.  
   
-The last bit is really powerful. It is so helpful y thoughtful to be included in such an old shipping version of IE. Let's see:
+The last bit is really powerful. It is so  
+helpful y thoughtful to be included in  
+such an old shipping version of IE. Let's see:
 ```js
 var feels = {
     r: 70,
@@ -99,4 +116,9 @@ var feels = {
 ```
 *from ./link/chess.js*  
   
-Objects can hold functions within them. They functions can even take parameters - though not shown here. These sub-functions or methods can use `this.` to access the properties on the object. You then can use the functions easily `feels.happy()`.
+Objects can hold functions within them.  
+They functions can even take parameters -  
+though not shown here. These sub-functions  
+or methods can use `this.` to access the  
+properties on the object. You then can  
+use the functions easily `feels.happy()`.  
