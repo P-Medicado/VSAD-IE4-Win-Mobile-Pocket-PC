@@ -10,6 +10,7 @@
     <style>
         body {
             margin: 0;
+            background: #09f;
         }
         /* div */
         table.board, .board td, .board tr {
@@ -22,15 +23,13 @@
 
         }
         table.board {
-            width: 100%;
             margin: auto;
         }
         .board td {
             border: none;
-            /* width: 3.125%; */
-            width: 1.25em;
-            height: 1.25em;
-            height: 100%;
+            width: 12px;
+            height: 12px;
+            font-size: 5px;
             background: #fff;
             vertical-align: middle;
             text-align: center;
@@ -42,6 +41,9 @@
             display: block;
             text-decoration: none;
             color: #bbb;
+        }
+        h1 {
+            margin: 0;
         }
 
         .opts {
@@ -57,6 +59,10 @@
             height: 1em;
             margin: auto;
         }
+        
+        .span-mar-left span {
+            margin-right: 22px;
+        }
     </style>
 </head>
 <script>
@@ -65,10 +71,11 @@
 
     function start() {
         var board = window["board"]
-        var html = "<table class='board' cellpadding='0' border='0' cellspacing='0'>"
+        var html = "<table class='board' align='center' cellpadding='0' border='0' cellspacing='0'>"
 
         for (var i = 0; i < side; i++) {
-            html += "<tr style='height: " + height + "px;'>"
+            html += "<tr>"
+            // html += "<tr style='height: " + height + "px;'>"
             for (var j = 0; j < side; j++) 
                 html += stringer((i+j) % 2 === 0, i*side+j, null)
             html += "</tr>"
@@ -118,21 +125,24 @@
 </script>
 <body id="body">
 
-    <div id="board"></div>
+    <div id="board" class="board"></div>
 
     <br>
 
     <div class="opts">
         <span>Red %</span>
-        <input id="red" type="number" placeholder="red"> <br><br>
+        <input id="red" type="number" value="0"> <br><br>
 
         <span>Green %</span>
-        <input id="green" type="number" placeholder="green"> <br><br>
+        <input id="green" type="number" value="0"> <br><br>
     
         <span>Blue %</span>
-        <input id="blue" type="number" placeholder="blue"> 
+        <input id="blue" type="number" value="0"> 
     </div>
-    <!-- <a href="#" onclick="alert(catchable(window['board'][window['blue'].value]))">aw</a> -->
+
+    <br>
+    <p>&nbsp;</p> 
+
 </body>
 <script>
     catchable(start)
