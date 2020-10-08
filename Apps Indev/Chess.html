@@ -7,48 +7,34 @@
     <link rel="stylesheet" href="../Res/css/td-btn.css">
     <!-- <script src="./lib/blank.js"></script> -->
     <!-- <script src="./link/chess.js"></script> -->
+    <style>
+        body {
+            margin: 0;
+        }
+        table.board {
+            width: 100%;
+            border: none;
+            border-collapse: collapse;
+        }
+        .board td {
+            border: none;
+            width: 12.5%;
+            height: 1em;
+            background: black;
+            color: white;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .board td.w {
+            background: #ddd;
+            color: #222;
+        }
+        .board td a {
+            display: block;
+            text-decoration: none;
+        }
+    </style>
 </head>
-<style>
-    body {
-        margin: 0;
-    }
-    table.board {
-        width: 100%;
-        border: none;
-        border-collapse: collapse;
-    }
-    .board td {
-        border: none;
-        width: 12.5%;
-        height: 1em;
-        background: black;
-        color: white;
-        vertical-align: middle;
-        text-align: center;
-    }
-    .board td.w {
-        background: #ddd;
-        color: #222;
-    }
-    .board td a {
-        display: block;
-        text-decoration: none;
-    }
-</style>
-<script>
-    document.onerror = function() {
-        alert("error")
-        // alert(window.event)
-    }
-    document.body.onkeypress = function(ev) {
-        // var unk = window.event
-        alert("Keypress")
-    }
-    window["err"].onmousedown = function(ev) {
-        // var unk = window.event
-        alert("Mousedown")
-    }
-</script>
 <body>
     <table class="board">
         <tr>
@@ -113,8 +99,6 @@
             </td>
         </tr>
     </table>
-
-    <a href="#" id="err" onclick="sdufoisd()">Error</a>
 
 </body>
 </html>

@@ -7,62 +7,65 @@
     <link rel="stylesheet" href="../Res/css/td-btn.css">
     <!-- <script src="./lib/blank.js"></script> -->
     <!-- <script src="./link/chess.js"></script> -->
+    <style>
+        body {
+            margin: 0;
+        }
+        /* div */
+        table.board, .board td, .board tr {
+            border: none;
+            border-width: 0px;
+            border-collapse: collapse;
+            border-color: red;
+            border-spacing: 0;
+            padding: 0;
+
+        }
+        table.board {
+            width: 100%;
+            margin: auto;
+        }
+        .board td {
+            border: none;
+            /* width: 3.125%; */
+            width: 1.25em;
+            height: 1.25em;
+            height: 100%;
+            background: #fff;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .board td.w {
+            background: #ddd;
+        }
+        .board td a {
+            display: block;
+            text-decoration: none;
+            color: #bbb;
+        }
+
+        .opts {
+            margin: 0 2em;
+        }
+        .opts p, .opts span {
+            float: left;
+            /* display: inline; */
+            margin: .5em auto;
+        }
+        .opts input {
+            float: right;
+            height: 1em;
+            margin: auto;
+        }
+    </style>
 </head>
-<style>
-    body {
-        margin: 0;
-    }
-    /* div */
-    table.board, .board td, .board tr {
-        border: none;
-        border-width: 0px;
-        border-collapse: collapse;
-        border-color: red;
-        border-spacing: 0;
-        padding: 0;
-
-    }
-    table.board {
-        width: 100%;
-        margin: auto;
-    }
-    .board td {
-        border: none;
-        width: 3.125%;
-        /* height: 1.25em; */
-        height: 100%;
-        background: #fff;
-        vertical-align: middle;
-        text-align: center;
-    }
-    .board td.w {
-        background: #ddd;
-    }
-    .board td a {
-        display: block;
-        text-decoration: none;
-        color: #bbb;
-    }
-
-
-    .opts p, .opts span {
-        float: left;
-        /* display: inline; */
-        margin: .5em auto;
-    }
-    .opts input {
-        float: right;
-        height: 1em;
-        margin: auto;
-    }
-</style>
 <script>
     var side = 16
     var height = (window.screen.width - 20) / 16 >> 0
 
     function start() {
         var board = window["board"]
-        var html = "<table class='board'>"
+        var html = "<table class='board' cellpadding='0' border='0' cellspacing='0'>"
 
         for (var i = 0; i < side; i++) {
             html += "<tr style='height: " + height + "px;'>"

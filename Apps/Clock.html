@@ -3,23 +3,52 @@
 <html>
 <head>
     <title>Clock</title>
+    <style>
+        body {
+            background-color: #0f9;
+            /* margin: 0; */
+        }
+        a {
+            text-decoration: underline;
+            display: block;
+            background-color: #eee;
+            margin: 0 2px;
+            padding: 4px 8px;
+        }
+        h1 {
+            margin: 0;
+        }
+        #output-2 {
+            margin: 0 2px;
+            padding: 4px 8px;
+            background-color: #eee;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body id="body">
-    <h1>IE 4 JavaScript Clock</h1>
+    <h1>Clock</h1>
     <div>
         <div>
-            <div id="output-2">__:__ __</div>
+            <div id="output-2">__:__:__ __</div>
             <br>
-            <a onclick="start()">Clock start</a>
+            <a id="start" onclick="clock_run = true; start()">Start Clock</a> 
+            <br>
+            <a id="stop" onclick="clock_run = false">Stop Clock</a>
         </div>
     </div>
 </body>
 <script>
+    var clock_run = true
+
     function start() {
-        setInterval(function() {
+        tick()
+        setTimeout(function() {
             tick()
-        }, 1000);
+            if(clock_run) start()
+        }, 1000)
     }
 
     function tick() {
@@ -38,6 +67,7 @@
             var date = new Date()
             var hour = date.getHours()
             var mins = date.getMinutes()
+            var secs = date.getSeconds()
             var noon = "AM"
             
             if(hour > 11) noon = "PM"
@@ -46,36 +76,13 @@
 
             if(hour === 0) hour = 12
             if(mins < 10) mins = "0" + mins
+            if(secs < 10) secs = secs + "0"
 
-            return "" + hour + ":" + mins + " " + noon
+            return "" + hour + ":" + mins + ":" + secs + " " + noon
         } catch (error) {
-            return error.message
+            return alert(error.message)
         }
     }
 </script>
-
-<style>
-    body {
-        background-color: #09f;
-        /* margin: 0; */
-    }
-    a {
-        text-decoration: underline;
-        display: block;
-
-        background-color: #eee;
-    }
-    h1 {
-        margin: 0;
-    }
-    #output-2 {
-        padding: 0 4px;
-        margin: 0 2px;
-        background-color: #eee;
-        padding: 4px 8px;
-        text-align: center;
-        font-size: 24px;
-    }
-</style>
 
 </html>
