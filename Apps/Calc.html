@@ -23,16 +23,27 @@
         table {
             width: 100%;
         }
+        #answer {
+            font-weight: bold;
+        }
+        hr {
+            margin: 0;
+            border: none;
+            height: 1px;
+            background: black;
+        }
     </style>
 </head>
 <script>
 
-    function start() {
+    function example_function() {
         var add_one = +inpt("add_in").value
         var add_two = +inpt("add_out").value
 
         alert("Sum is: " + (add_one + add_two))
+        document.write('<input type="number" value="42" name="" id="one">')
     }
+
     function math(key) {
         var a = "one"
         var b = "two"
@@ -46,15 +57,23 @@
                 break;
         }
     }
-    function alert(str) {
-        window["answer"].innerHTML = "<b>" + str + "<b>"
-    }
 
-    document.write('<input type="number" value="42" name="" id="one">')
+    // overrides window.alert JavaScript API
+    // 
+    // demos overriding capability.
+    function alert(str) {
+        window["answer"].innerHTML = 
+            str + "<br>" + window["answer"].innerHTML
+        // .insertAdjacentHTML("afterBegin", str + "<hr>")
+    }
 
 </script>
 <body>
-    <input type="number" value="37" name="" id="two"> 
+    <h1>
+        Calculator
+    </h1>
+    <input type="number" value="37" name="" id="two"> <br>
+    <input type="number" value="42" name="" id="one">
     <br><br><hr><br>
     <table>
         <tr>
@@ -72,8 +91,7 @@
             </td>
         </tr>
     </table>
-    <p>
-        Answer: <span id="answer"></span>
-    </p>
+    <br>
+    <div id="answer"></div>
 </body>
 </html>
