@@ -76,7 +76,7 @@
 
             if(hour === 0) hour = 12
             if(mins < 10) mins = "0" + mins
-            if(secs < 10) secs = secs + "0"
+            if(secs < 10) secs = "0" + secs 
 
             return "" + hour + ":" + mins + ":" + secs + " " + noon
         } catch (error) {
