@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+    <title>IE4: JS Tap</title>
+</head>
+
+<body id="body">
+    <h1>IE 4 JavaScript Tap</h1>
+    <div>
+        <div>
+            <a onclick="start()">Start game</a>
+            <div id="table-insert"></div>
+            <div id="out"><pre id="out-x"></pre></div>
+        </div>
+    </div>
+    <script language="JavaScript1.3">
+
+        var count = 0
+
+        function start() {
+            var t = window["table-insert"]
+            var html = "<table>"
+            html += "<tr> <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> </tr>"
+
+            for (var i = 0; i < 8; i++)  
+                html += gen_x()
+
+            html += "</table>"
+            
+            var x = window["out"]
+            t.innerHTML = html
+            // x.innerText = t.innerHTML
+        }
+
+        function gen_x() {
+            return "<tr>" + gen() + gen() + gen() + gen() + gen() + "</tr>"
+        }
+
+        function gen() {
+            var colors = ["red","blue","green","yellow","purple"]
+            var color = colors[Math.random() * 5 >> 0]
+            var html = "<td class='" + color + "'>"
+            html += "<a onclick='fire(" + count++ + ")'>&nbsp;&nbsp;&nbsp;&nbsp;</a></td>"
+            return html
+        }
+        function fire(num) {
+            var columns = 5
+            var rows = 8
+
+            var x = num % 5 + 1
+            var y = num / columns + 1 >> 0 
+
+            alert("[x,y] " + "[" + x + "," + y + "] from " + num)
+        }
+    </script>
+</body>
+
+
+
+<style>
+    body {
+        background-color: #09f;
+    }
+    a {
+        text-decoration: underline;
+        display: block;
+        background-color: #eee;
+    }
+    h1 {
+        margin: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    table, td, th {
+        border: 2px solid #09f;
+        text-align: left;
+    }
+    td, th {
+        text-align: center;
+        width: 25px;
+        height: 25px;
+    }
+    tr {
+        height: 25px;
+    }
+    table a {
+        width: 100%;
+        display: block;
+        opacity: .2;
+        background-color: transparent;
+    }
+
+    .red { background-color: red; }
+    .yellow { background-color: yellow; }
+    .purple { background-color: purple; }
+    .blue { background-color: blue; }
+    .green { background-color: green; }
+</style>
+
+</html>

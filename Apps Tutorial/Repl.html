@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Page-Enter" content="revealTrans(Duration=5.0,Transition=8)">
+    <title>IE4: JS REPL</title>
+</head>
+
+<body id="body">
+    <h1>IE 4 JavaScript REPL</h1>
+    <div>
+        <input type="text" id="input-1">
+        <br>
+        <a class="button" onclick="add()">Execute</a>
+        <br>
+    </div>
+    <div>
+        <div>
+            <div id="output-2"> </div>
+            <div id="oldput-3"> </div>
+        </div>
+    </div>
+    <script>
+    
+        function add() {
+            var p = window["output-2"]
+            var inp = window["input-1"]
+            var x = window["oldput-3"]
+    
+            // alert("out: " + inp.value)
+    
+            // if(p.innerHTML) alert(p.innerHTML)
+            // else alert("no html")
+    
+            try {
+                x.innerHTML = "<br><hr><br>" + p.innerHTML + x.innerHTML
+                p.innerHTML = inp.value + ":&nbsp; "
+                p.innerHTML += "<b>" + eval(inp.value) + "</b>"
+            } catch (error) {
+                p.innerHTML += "<code>" + error.message + "</code>"
+            }
+
+            // inp.placeholder = inp.value
+            inp.value = ""
+        }
+    </script>
+</body>
+
+<style>
+    body {
+        background-color: #09f;
+        /* margin: 0; */
+    }
+    a {
+        text-decoration: underline;
+        display: block;
+    }
+    h1 {
+        margin: 0;
+    }
+
+    .button {
+        /* height: 100%; */
+        background-color: #eee;
+        padding: 4px 8px;
+        margin: 0px 4px;
+        /* color: #09f; */
+    }
+
+    input {
+        padding: 0;
+        margin: 0px 2px;
+        width: 100%;
+        display: block;
+        max-width: none;
+        box-sizing: border-box;
+    }
+
+    code {
+        background-color: #eee;
+        color: red;
+        font-weight: bold;
+    }
+
+    #output-2, #oldput-3 {
+        padding: 0 4px;
+        margin: 0 2px;
+    }
+</style>
+
+</html>
