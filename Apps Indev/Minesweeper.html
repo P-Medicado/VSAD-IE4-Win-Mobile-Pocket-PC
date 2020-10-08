@@ -1,0 +1,222 @@
+<head>
+    <style>
+        BODY {
+            /* background: repeating-linear-gradient(45deg, #08e 0, #08e 3em, #06c 3em, #06c 6em); */
+            background: #08e;
+            color: #222;
+            font-family: "courier new";
+            text-align: center;
+            font-size: 2em;
+            display: flex;
+        }
+
+        H1 {
+            text-align: center;
+            font-size: 1.2em;
+            color: white;
+            font-weight: normal;
+            font-family: -apple-system, Helvetica,
+                'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+                'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        #grid {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #grid TR TD {
+            border: 1px solid #0004;
+            background-color: darksalmon;
+            width: 1.62em;
+            height: 1.88em;
+            text-align: center;
+            border-radius: .25em;
+        }
+
+        #grid TR TD.clicked {
+            background-color: rgb(233, 180, 163);
+            font-weight: 700;
+        }
+
+        #grid TR TD.mine {
+            background: rgb(209, 150, 130);
+        }
+
+        #grid TR TD.mine::after {
+            content: "💣";
+        }
+
+        #grid TR TD.m8 {
+            color: black;
+        }
+
+        #grid TR TD.m7 {
+            color: darkslategray;
+        }
+
+        #grid TR TD.m6 {
+            color: darkslateblue;
+        }
+
+        #grid TR TD.m5 {
+            color: darkred;
+        }
+
+        #grid TR TD.m4 {
+            color: red;
+        }
+
+        #grid TR TD.m3 {
+            color: orangered;
+        }
+
+        #grid TR TD.m2 {
+            color: olivedrab;
+        }
+
+        #grid TR TD.m1 {
+            color: green;
+        }
+
+        #grid TR TD.m0 {
+            color: darkgreen;
+        }
+
+        BUTTON {
+            margin: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="margin: auto;">
+        <H1>Minesweeper</H1>
+        <table id="grid">
+        </table>
+        <BUTTON onclick="generateGrid();">Reset Grid</BUTTON>
+    </div>
+</body>
+
+<script>
+var grid = window["grid"] || document.getElementById("grid")
+var testMode = false //Turn this variable to true to see where the mines are
+var side = 10
+start()
+addMines()
+
+function start() {
+    var html = "<table class='board' align='center' cellpadding='0' border='0' cellspacing='0'>"
+
+    for (var i = 0; i < side; i++) {
+        html += "<tr>"
+        for (var j = 0; j < side; j++) 
+            html += stringer((i+j) % 2 === 0, i*side+j, null)
+        html += "</tr>"
+    }
+
+    html += "</table>"
+    grid.innerHTML = html
+}
+function stringer(v_class, p_id, v_color) {
+    var p_class = ""
+    var p_color = ""
+    if(v_class) p_class = "class='w'"
+    if(v_color) p_color = v_color
+
+    return [
+        "<td ",p_class,"><div id='td_",
+        p_id,"'><a href='#' ",p_color," onclick='tap(",
+        p_id,", this)'>&nbsp;</a></td>"].join("")
+}
+
+function generateGrid() {
+  //generate 10 by 10 grid
+  grid.innerHTML="";
+  for (var i=0; i<10; i++) {
+    row = grid.insertRow(i);
+    for (var j=0; j<10; j++) {
+      cell = row.insertCell(j);
+      cell.onclick = function() { clickCell(this); };
+      var mine = document.createAttribute("data-mine");       
+      mine.value = "false";             
+      cell.setAttributeNode(mine);
+    }
+  }
+  addMines();
+}
+
+function addMines() {
+  //Add mines randomly
+  for (var i=0; i<20; i++) {
+    var id = Math.random() * side * side >> 0
+
+    var cell = window["td_" + id] || document.getElementById("td_" + id)
+    
+    cell.innerHTML = ["<a href='#' class='mine' onclick='tap(",
+        id, ", this)'>&nbsp;</a>"].join("");
+  }
+}
+
+function tap(id, el) {
+    if(el.outerHTML.indexOf("mine") > -1)
+        return alert("Oh no, you lost!")
+    
+    
+}
+
+function revealMines() {
+    //Highlight all mines in red
+    for (var i=0; i<10; i++) {
+      for(var j=0; j<10; j++) {
+        var cell = grid.rows[i].cells[j];
+        if (cell.getAttribute("data-mine")=="true") cell.className="mine";
+      }
+    }
+}
+
+function checkLevelCompletion() {
+  var levelComplete = true;
+    for (var i=0; i<10; i++) {
+      for(var j=0; j<10; j++) {
+        if ((grid.rows[i].cells[j].getAttribute("data-mine")=="false") && (grid.rows[i].cells[j].innerHTML=="")) levelComplete=false;
+      }
+  }
+  if (levelComplete) {
+    alert("You Win!");
+    revealMines();
+  }
+}
+
+function clickCell(cell = document.createElement("td")) {
+  //Check if the end-user clicked on a mine
+  if (cell.getAttribute("data-mine")=="true") {
+    revealMines();
+    alert("Game Over");
+  } else {
+    cell.className="clicked";
+    //Count and display the number of adjacent mines
+    var mineCount=0;
+    var cellRow = cell.parentNode.rowIndex;
+    var cellCol = cell.cellIndex;
+    //alert(cellRow + " " + cellCol);
+    for (var i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,9); i++) {
+      for(var j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,9); j++) {
+        if (grid.rows[i].cells[j].getAttribute("data-mine")=="true") mineCount++;
+      }
+    }
+    cell.innerHTML=mineCount;
+    cell.classList.add(`m${mineCount}`)
+    if (mineCount==0) { 
+      //Reveal all adjacent cells as they do not have a mine
+      for (var i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,9); i++) {
+        for(var j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,9); j++) {
+          //Recursive Call
+          if (grid.rows[i].cells[j].innerHTML=="") clickCell(grid.rows[i].cells[j]);
+        }
+      }
+    }
+    checkLevelCompletion();
+  }
+}
+</script>

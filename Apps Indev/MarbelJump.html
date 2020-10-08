@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML lang="en">
+
+<HEAD>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html">
+    <META HTTP-EQUIV="Content-Language" CONTENT="en-GB">
+    <TITLE>JavaScript Solitaire</TITLE>
+    <SCRIPT LANGUAGE="JavaScript">
+
+        // <!-- Use comment to hide from browsers not supporting JavaScript
+        //============================================================================================
+        //
+        //    Forked:       from JavaScript Solitaire v0.10 by Keith Drakard of kif@irt.org
+        //    Date:         (forked October 2020) (orignial December 1997)
+        //    Abstract:     Remove marbles by jumping over them until only one is left in the center.
+        //
+        //
+        // THE SOLITAIRE BOARD:
+        // |-01-|-02-| 03 | 04 | 05 |-06-|-07-|
+        // |-08-|-09-| 10 | 11 | 12 |-13-|-14-|
+        // | 15 | 16 | 17 | 18 | 19 | 20 | 21 |
+        // | 22 | 23 | 24 | 25 | 26 | 27 | 28 |
+        // | 29 | 30 | 31 | 32 | 33 | 34 | 35 |
+        // |-36-|-37-| 38 | 39 | 40 |-41-|-42-|
+        // |-43-|-44-| 45 | 46 | 47 |-48-|-49-|
+        // 
+
+        function check_move(from, to) {
+            var middle = ""       // the board number of the ball in the middle of
+            // "from" and "to" ELSE "" if illegal move
+
+            from = +from
+            to = +to
+
+            var diff = from - to
+            var xpos = from % 7
+
+            // first we check to see if "diff" equals either 2, -2, 14 or -14
+            // because that holds true for all valid moves only (ie: it is two spaces
+            // away in a direct line - due to the setup of the board)
+
+            // now we check to see if a wraparound of "from" and "to" has occured
+            // on the left hand side of the board
+            if (diff == 2 && !(xpos == 1 || xpos == 2)) 
+                middle = "ball" + (from - 1)
+
+            // or alternatively, on the right hand side
+            else if (diff == -2 && !(xpos == 6 || xpos == 0)) 
+                middle = "ball" + (from + 1)
+
+            // there's a no need to check this case
+            // because of the setup of the board (numbers: left to right, top to bottom)
+            else if (diff == 14) 
+                middle = "ball" + (from - 7)
+
+            // and no need to check this case either
+            else if (diff == -14)
+                middle = "ball" + (from + 7)
+
+            // illegal move, but we flag it later
+            else { }
+
+            // okay, so it's a valid move, but lets just make sure that there _is_
+            // a marble to be jumped over...
+            if (middle != "") {
+                var len = document.images[middle].src.length
+                var img = document.images[middle].src.substring(len - 10, len)
+                if (img == "ball_0.gif") middle = "" // doh! no marble, no move
+            }
+
+            // we've done our checks and now we return the board number of the marble in
+            // the middle or, if the move is illegal, we return a default ""
+            return middle
+        }
+
+
+        // deal with user input
+        function user_play(where, whatis) {
+            if ((whatis && solving) || (!whatis && !solving)) return 
+
+            var len = document.images[where].src.length;
+            var img = document.images[where].src.substring(len - 10, len);
+
+            console.log(img, where, selected)
+            switch (img) {
+                case "ball_0.gif": // click on a hollow
+                    if(!selected) return
+                    var sel = selected.substring(4, selected.length)
+                    var wh = where.substring(4, where.length)
+                    var middle = check_move(sel, wh)
+
+                    if (middle != "") {
+                        document.images[selected].src = "images/ball_0.gif"
+                        document.images[middle].src = "images/ball_0.gif"
+                        document.images[where].src = "images/ball_2.gif"
+                        selected = where
+                    } 
+                    else alert("Only horizontal and vertical jumps over one ball are allowed.")
+                    return
+                case "ball_1.gif": // click on a red ball
+                    if(selected) document.images[selected].src = "images/ball_1.gif"
+                    document.images[where].src = "images/ball_2.gif" 
+                    selected = where
+                    return
+                case "ball_2.gif": // click on a yellow (selected) ball    
+                    document.images[selected].src = "images/ball_1.gif" 
+                    selected = ""
+                    return
+            }
+            
+            alert("uh-oh... program error")
+        }
+
+
+        // step through the solution array, and simulate a mouse click on the
+        // board position represented by the array
+        function solve() {
+            if (solving) return 
+
+            solving = 1 // show that we're currently involved in solving
+            
+            for (var i = 0; i < (solution.length); i++) 
+                setTimeout("user_play('ball" + solution[i] + "', 0)", i * 300);
+            
+            setTimeout("solving = 0", i * 300) // and now we've finished
+        }
+
+        function print_tile(count) {
+            document.write('<TD ALIGN="center"><A HREF="#" onclick="user_play(\'ball' + count + '\', 1);"><IMG SRC="images/ball_1.gif" WIDTH="40" HEIGHT="40" BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
+        }
+        function print_blank() {
+            document.write('<TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD><TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD><TD>&nbsp;<\/TD><\/TR>\n')
+        }
+
+        // reset the board
+        // NB: adding images before the solitaire board on the same HTML page
+        //     will mess things up. Add the noof images to [i] & [24] or use
+        //     the image NAME.. that's what it's there for..
+        function set_up() {
+            if (solving) return 
+            
+            for (var i = 2; i < 47; i++) 
+                if (!(i > 4 && i < 9) && (i != 12 && i != 13 && i != 24 && i != 35 && i != 36) && !(i > 39 && i < 44)) 
+                    document.images[i].src = "images/ball_1.gif"
+                
+            document.images[24].src = "images/ball_0.gif"
+        }
+
+
+        // Global variables
+        var selected = 0        // currently highlighted ball
+        var solving = 0         // state of solving function (0=off, 1=on)
+        // SOLUTION 1:
+        var solution = new Array(11, 25, 20, 18, 5, 19, 26, 12, 40, 26, 35, 33, 32,
+            34, 21, 35, 33, 17, 19, 15, 17, 30, 32, 34, 20, 18,
+            16, 3, 5, 19, 33, 45, 31, 24, 38, 47, 45, 31, 29,
+            15, 17, 10, 24, 38, 40, 26, 24, 23, 25, 25)
+        //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY text="#000000" link="#000000" vlink="#555555" alink="#ff0000">
+    <CENTER>
+        <FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">
+            <H2>JavaScript Solitaire</H2>
+
+            <TABLE ALIGN="center" BORDER="0" WIDTH="280" CELLSPACING="0" CELLPADDING="0" BGCOLOR="#00ff00">
+                <TR>
+                    <TD>&nbsp;&nbsp;&nbsp;</TD>
+                    <TD COLSPAN="7">&nbsp;</TD>
+                    <TD>&nbsp;&nbsp;&nbsp;</TD>
+                </TR>
+
+                <SCRIPT LANGUAGE="JavaScript">
+                    // <!-- and start hiding again...
+
+                    var count = 1
+
+                    // build up the board
+                    for (var i = 0; i < 7; i++) {
+
+                        if (i < 2 || i > 4) { // we're doing a row with 3 on
+                            document.write('<TR><TD>&nbsp;<\/TD><TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD><TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD>')
+                            count += 2
+                            for (var j = 0; j < 3; j++) 
+                                print_tile(count + j)
+                            
+                            count += 3
+                            print_blank()
+                            count += 2
+                        } 
+                        
+                        else { // we're doing a full row of 7
+                            document.write('<TR><TD>&nbsp;<\/TD>')
+                            for (var j = 0; j < 7; j++) {
+                                if (count == 25) document.write('<TD ALIGN="center"><A HREF="#" onclick="user_play(\'ball' + count + '\', 1);"><IMG SRC="images/ball_0.gif" WIDTH="40" HEIGHT="40" BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
+                                    
+                                else document.write('<TD ALIGN="center"><A HREF="#" onclick="user_play(\'ball' + count + '\', 1);"><IMG SRC="images/ball_1.gif" WIDTH="40" HEIGHT="40" BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
+                                
+                                count++
+                            }
+                            document.write('<TD>&nbsp;<\/TD><\/TR>\n')
+                        }
+                    }
+
+                    //-->
+                </SCRIPT>
+
+                <TR>
+                    <TD COLSPAN="9">&nbsp;</TD>
+                </TR>
+            </TABLE>
+
+            <BR>
+            <FORM><INPUT TYPE="button" onclick="set_up();" VALUE="Reset Board"><BR><BR><INPUT TYPE="button"
+                    onclick="set_up(); solve();" VALUE="Demo Solution"></FORM>
+
+        </FONT>
+    </CENTER>
+
+</BODY>
+
+</HTML>
