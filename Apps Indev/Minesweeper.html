@@ -11,7 +11,7 @@
     <style>
         body {
             margin: 0;
-            background: #09f;
+            background: #bbb;
         }
 
         /* div */
@@ -33,12 +33,17 @@
 
         .board td {
             border: none;
-            width: 12px;
-            height: 12px;
-            font-size: 5px;
+            font-size: 18px;
             background: #fff;
             vertical-align: middle;
             text-align: center;
+
+            width: 20px;
+            height: 20px;
+        }
+        .grid TR TD div {
+            height: 100%;
+            line-height: 20px;
         }
 
         .board td.w {
@@ -76,10 +81,6 @@
             margin-right: 22px;
         }
 
-        .grid TR TD div {
-            height: 100%;
-            line-height: 12px;
-        }
         .grid TR p {
             margin: 0;
             font-weight: bold;
@@ -137,16 +138,6 @@
         mines.place()
     }
 
-    function catchable(fn) {
-        try {
-            return fn()
-        }
-        catch (error) {
-            alert(error.message)
-            return "error"
-        }
-    }
-
     function stringer(v_class, p_id, v_color) {
         var p_class = ""
         var p_color = ""
@@ -162,8 +153,10 @@
     }
 
     function tap(id) {
-        if (!mines.is_mine(id)) clickCell(id)
-        else alert("Oh no! You hit a bomb.")
+        if (!mines.is_mine(id)) return clickCell(id)
+        
+        alert("Oh no! You hit a bomb.")
+        window["td_" + id].innerHTML = "<p class='clicked'>X</p>"
     }
 
     function clickCell(id) {
@@ -182,18 +175,23 @@
 
         window["td_" + id].innerHTML = ["<p class='clicked m", count, "'>", count, "</p>"].join("")
 
-        if (!count) {
-            // Reveal all adjacent cells as they do not have a mine
+        if (count) return
 
-            for (var i = Math.max(row - 1, 0); i <= Math.min(row + 1, side - 1); i++)
-                for (var j = Math.max(col - 1, 0); j <= Math.min(col + 1, side - 1); j++)
-                    if (is_string_empty(window["td_" + (i * side + j)].innerText))
-                        clickCell(i * side + j) // Recursive
-        }
+        // Reveal all adjacent cells as they do not have a mine
+
+        for (var i = Math.max(row - 1, 0); i <= Math.min(row + 1, side - 1); i++)
+            for (var j = Math.max(col - 1, 0); j <= Math.min(col + 1, side - 1); j++)
+                if (is_string_empty(window["td_" + (i * side + j)].innerText))
+                    clickCell(i * side + j) // Recursive
     }
 
     function is_string_empty(str) {
-        return (str.split("\u00A0").join("").split(" ").join("") === "")
+        // doesn't work on ppc.
+        // ppc has all the methods y capabilities
+        // but this fn never runs
+        // even when count is 0 (as printed on tile)
+        // also !0 == true on ppc so idk
+        return (str.split(window["nbsp"].innerText).join("").split(" ").join("") === "")
     }
 
     var mines = new (function () {
@@ -223,28 +221,12 @@
 </script>
 
 <body id="body">
-
     <div id="board" class="board grid"></div>
-
     <br>
-
-    <!-- <div class="opts">
-        <span>Red %</span>
-        <input id="red" type="number" value="0"> <br><br>
-
-        <span>Green %</span>
-        <input id="green" type="number" value="0"> <br><br>
-    
-        <span>Blue %</span>
-        <input id="blue" type="number" value="0"> 
-    </div> -->
-
-    <br>
-    <p>&nbsp;</p>
-
+    <p id="nbsp">&nbsp;</p>
 </body>
 <script>
-    catchable(start)
+    start()
 </script>
 
 </html>
