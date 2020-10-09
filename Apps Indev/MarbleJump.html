@@ -4,7 +4,6 @@
 
 <HEAD>
     <META HTTP-EQUIV="Content-Type" CONTENT="text/html">
-    <META HTTP-EQUIV="Content-Language" CONTENT="en-GB">
     <TITLE>JavaScript Solitaire</TITLE>
     <SCRIPT LANGUAGE="JavaScript">
 
@@ -77,12 +76,12 @@
 
         // deal with user input
         function user_play(where, whatis) {
+            
             if ((whatis && solving) || (!whatis && !solving)) return 
 
             var len = document.images[where].src.length;
             var img = document.images[where].src.substring(len - 10, len);
-
-            console.log(img, where, selected)
+            
             switch (img) {
                 case "ball_0.gif": // click on a hollow
                     if(!selected) return
@@ -127,10 +126,10 @@
         }
 
         function print_tile(count) {
-            document.write('<TD ALIGN="center"><A HREF="#" onclick="user_play(\'ball' + count + '\', 1);"><IMG SRC="images/ball_1.gif" WIDTH="40" HEIGHT="40" BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
+            document.write('<TD ALIGN="center"><A href="javascript:void(0)" onclick="user_play(\'ball' + count + '\', 1)"><IMG SRC="images/ball_1.gif"' + td_size + 'BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
         }
         function print_blank() {
-            document.write('<TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD><TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD><TD>&nbsp;<\/TD><\/TR>\n')
+            document.write('<TD ALIGN="center"><IMG SRC="images/green.gif"' + td_size + 'BORDER="0"><\/TD><TD ALIGN="center"><IMG SRC="images/green.gif"' + td_size + 'BORDER="0"><\/TD><TD>&nbsp;<\/TD><\/TR>\n')
         }
 
         // reset the board
@@ -151,6 +150,7 @@
         // Global variables
         var selected = 0        // currently highlighted ball
         var solving = 0         // state of solving function (0=off, 1=on)
+        var td_size = ' WIDTH="28"  HEIGHT="28" '
         // SOLUTION 1:
         var solution = new Array(11, 25, 20, 18, 5, 19, 26, 12, 40, 26, 35, 33, 32,
             34, 21, 35, 33, 17, 19, 15, 17, 30, 32, 34, 20, 18,
@@ -158,14 +158,19 @@
             15, 17, 10, 24, 38, 40, 26, 24, 23, 25, 25)
         //-->
     </SCRIPT>
+    <STYLE>
+        body {
+            background: green;
+        }
+    </STYLE>
 </HEAD>
 
 <BODY text="#000000" link="#000000" vlink="#555555" alink="#ff0000">
     <CENTER>
-        <FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">
-            <H2>JavaScript Solitaire</H2>
+        <!-- <FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"> -->
+            <H2>Marble Jump</H2>
 
-            <TABLE ALIGN="center" BORDER="0" WIDTH="280" CELLSPACING="0" CELLPADDING="0" BGCOLOR="#00ff00">
+            <TABLE style="width: 100%; max-width: 0;" ALIGN="center" BORDER="0" CELLSPACING="0" CELLPADDING="0" BGCOLOR="#00ff00">
                 <TR>
                     <TD>&nbsp;&nbsp;&nbsp;</TD>
                     <TD COLSPAN="7">&nbsp;</TD>
@@ -181,7 +186,7 @@
                     for (var i = 0; i < 7; i++) {
 
                         if (i < 2 || i > 4) { // we're doing a row with 3 on
-                            document.write('<TR><TD>&nbsp;<\/TD><TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD><TD ALIGN="center"><IMG SRC="images/green.gif" WIDTH="40" HEIGHT="40" BORDER="0"><\/TD>')
+                            document.write('<TR><TD>&nbsp;<\/TD><TD ALIGN="center"><IMG SRC="images/green.gif"' + td_size + 'BORDER="0"><\/TD><TD ALIGN="center"><IMG SRC="images/green.gif"' + td_size + 'BORDER="0"><\/TD>')
                             count += 2
                             for (var j = 0; j < 3; j++) 
                                 print_tile(count + j)
@@ -194,9 +199,9 @@
                         else { // we're doing a full row of 7
                             document.write('<TR><TD>&nbsp;<\/TD>')
                             for (var j = 0; j < 7; j++) {
-                                if (count == 25) document.write('<TD ALIGN="center"><A HREF="#" onclick="user_play(\'ball' + count + '\', 1);"><IMG SRC="images/ball_0.gif" WIDTH="40" HEIGHT="40" BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
+                                if (count == 25) document.write('<TD ALIGN="center"><A href="javascript:void(0)" onclick="user_play(\'ball' + count + '\', 1)"><IMG SRC="images/ball_0.gif"' + td_size + 'BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
                                     
-                                else document.write('<TD ALIGN="center"><A HREF="#" onclick="user_play(\'ball' + count + '\', 1);"><IMG SRC="images/ball_1.gif" WIDTH="40" HEIGHT="40" BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
+                                else document.write('<TD ALIGN="center"><A href="javascript:void(0)" onclick="user_play(\'ball' + count + '\', 1)"><IMG SRC="images/ball_1.gif"' + td_size + 'BORDER="0" NAME="ball' + count + '"><\/A><\/TD>')
                                 
                                 count++
                             }
@@ -213,10 +218,10 @@
             </TABLE>
 
             <BR>
-            <FORM><INPUT TYPE="button" onclick="set_up();" VALUE="Reset Board"><BR><BR><INPUT TYPE="button"
-                    onclick="set_up(); solve();" VALUE="Demo Solution"></FORM>
+            <A href="javascript:void(0)" onclick="set_up();">Reset Board</A> <BR>
+            <A href="javascript:void(0)" onclick="set_up(); solve();">Demo Solution</A>
 
-        </FONT>
+        <!-- </FONT> -->
     </CENTER>
 
 </BODY>

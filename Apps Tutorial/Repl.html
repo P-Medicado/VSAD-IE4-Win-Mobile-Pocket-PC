@@ -48,7 +48,7 @@
 </head>
 
 <body id="body">
-    <h1>JavaScript REPL</h1>
+    <h1>Read Eval Print Loop</h1>
     <div>
         <input type="text" id="input-1">
         <br>
@@ -79,6 +79,25 @@
             // inp.placeholder = inp.value
             inp.value = ""
         }
+
+        function pawn() {
+            this.x = -1
+            this.y = -1
+            this.color = "black"
+
+            this.start = function(x, y, color) {
+                this.x = x
+                this.y = y
+                this.color = color
+                this.direction = 1
+            }
+
+            this.move = function() {
+                this.y = this.y + 1
+            }
+        }
+
+       
     </script>
 </body>
 
