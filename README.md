@@ -1,23 +1,38 @@
-<h1 align="center"> 🐢 &nbsp; IE 4 Inforepo, by vsads hacking co. &nbsp; 🐚 </h1>
+<h1 align="center"> 🐢 &nbsp; Internet Explorer for Mobile + JavaScript &nbsp; 🐚 </h1>
   
 
 <p align="center">  
 <i>
-We're gathering up information for writing small web apps for old Pocket PCs. There are already a few demo apps.
+We're gathering info for writing small web apps <br> for versions of Internet Explorer for mobile devices.
 <br><br>
-How can I get started writing JavaScript for such an old OS? Is the JavaScript much different than what I know?
+We fully support IE for Pocket PC 4.01 to now!
 <br><br>
 </i>
 </p>
-
   
+## Quick Questions
+```md
+What does JavaScript pre-IE 5 look like?
+
+Is everything procedural? No classes, prototypes, OOP, composition?
+
+What about DOM binding?
+```
+  
+### Yes, we have prototype.
+In JavaScript, we have a few classics like `Math.round()`; a good example of  
+a `class` with a `static` method. `prototype` isn't that at all. `prototype`  
+is one way to add **non-static** methods to a `class`. Pocket IE 4? Has it.  
+
+### Classes? We have those too.
+Modern webdevs use the JS keyword `class` to make an Object-Oriented-style  
+class: a blueprint to make objects from with the same `properties` + `methods`.  
+To make a new object from your class, write `new Car("blue", "leather", 1982)`.  
+Can we do this in pIE from 2003? Absolutely.  
    
-> What is the IE 4 Inforepo?
-> ---
-> A collection of links, references, projects,  
-> &amp; human-readable tutorials for writing  
-> JavaScript web-apps for Internet Explorer  
-> 4 - common on most Pocket PCs from 2002 &amp; 2003.
+### What about HTML DOM? `.innerHTML` is older than you think.
+We can build DOM binding off two features, `.innerHTML` + classes.  
+Check, check.
   
 ## 🔗&nbsp; Links 
 [IE 4's Unique DOM Objects ](https://www.tutorialspoint.com/javascript/javascript_ie4_dom.htm)
