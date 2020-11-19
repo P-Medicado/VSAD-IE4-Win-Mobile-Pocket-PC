@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can I Use</title>
+    <style>
+        .container div {
+            display: inline;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            text-align: left;
+            border-collapse: collapse;
+            padding: 6px 10px;
+        }
+        .on {
+            background: #a6e9a6;
+            color: #1d8d1d;
+        }
+        .off {
+            background: #e9b0a6;
+            color: #923828;
+        }
+        b {
+            display: block;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <b>JavaScript</b>
+        CanIUse Script
+    </h1>
+
+    <div id="abilities">
+
+    </div>
+
+    <script>
+
+        // class Valid
+        function Valid(version, name, category) {
+            this.version = ""+version
+            this.category = category
+            this.name = name
+            this.value = true
+        }
+        Valid.prototype.html = function() {
+            return toStr([
+                "<tr>",
+                    "<td>",this.category,"</td>",
+                    "<td>",this.version,"</td>",
+                    "<td>",this.name,"</td>",
+                    "<td class='",this.value ? 'on' : 'off',"' >",this.value,"</td>",
+                "</tr>"
+            ])
+        }
+        
+        function V(version, category, name) {
+            if(version === 0) version = "None"
+            return new Valid(version, name, category)
+        }
+
+        var valid = { 
+            items: [
+
+                // 0
+                V(7,"","(Non-ActiveX) XMLHttpRequest"),
+                V("5 (possibly lower)","","(IE Only) ActiveXObject"),
+                
+                // 2
+                V(5,"DOM","createElement"),
+                V(5.5,"DOM","getElementById"),
+                
+                // 4
+                V(3,"args","arguments"),
+                V(4,"args","arguments.length"),
+                V(6,"args","arguments.callee"),
+                
+                // 7
+                V(6,"for","via in"),
+                V(0,"for","via of"),
+                
+                // 9
+                V(5.5,"array","array.join()"),
+                V(5.5,"array","array.sort()"),
+                V(9,"array","array.filter()"),
+                V(9,"array","array.reduce()"),
+                V(0,"array","array.flat()"),
+                
+                V(3,"","with statement"),
+                V(5,"","instanceof"),
+                V(11,"","let or const"),
+                V(0,"","star functions"),
+                V(0,"","arrow functions"),
+
+                V(4,"RGX","Regex"),
+                V("ES5","RGX","Literal Flags"),
+                V("Unknown","RGX","Look Behind"),
+            ],
+            id: 0,
+            no: function() {
+                this.items[this.id].value = false
+            },
+            x: function() {
+                this.id++
+            }
+        }
+
+
+        if(!window.XMLHttpRequest) valid.no()
+        valid.x()
+        if(!window.ActiveXObject) valid.no()
+        valid.x()
+
+        if(!document.getElementById) valid.no()
+        valid.x()
+        if(!document.createElement) valid.no()
+        valid.x()
+
+        try { Function('arguments') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { Function('arguments.lenth') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { Function('arguments.callee') }
+        catch (e) { valid.no() }
+        valid.x()
+
+        try { Function('for (var i in {a:1,b:2}) {}') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { Function('for (var i of []) {}') }
+        catch (e) { valid.no() }
+        valid.x()
+
+        if(![].join) valid.no()
+        valid.x()
+        if(![].sort) valid.no()
+        valid.x()
+        if(![].filter) valid.no()
+        valid.x()
+        if(![].reduce) valid.no()
+        valid.x()
+        if(![].flat) valid.no()
+        valid.x()
+
+        try { Function('with(Math) PI') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { Function('"" instanceof Object') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { Function('let v=1;') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { Function('function* a() {}') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { Function('var a = v => v') }
+        catch (e) { valid.no() }
+        valid.x()
+
+        try { RegExp('(new RegExp("ab+c", "i")).exec("");') }
+        catch (e) { valid.no() } 
+        valid.x()
+        try { RegExp('new RegExp(/ab+c/, "i");') }
+        catch (e) { valid.no() }
+        valid.x()
+        try { RegExp('new RegExp("(?<=)");') }
+        catch (e) { valid.no() }
+        valid.x()
+        
+        // depending on which are true and which are false
+        // document.write('<script src="script-blah.js">\x3C/script>');
+        // immediately write it before the page finishes loading
+    
+        var div = byId("abilities")
+
+        var html = toStr([
+            "<table>",
+                "<tr>",
+                    "<th>Category</th>",
+                    "<th>Desktop IE Version</th>",
+                    "<th>Features</th>",
+                    "<th>In Browser</th>",
+                "</tr>",
+                
+                valid.items.map(_ => _.html()).join(""),
+                
+            "</table>"])
+        div.innerHTML = html
+
+        function toStr(arr) {
+            var str = ""
+            for (var i = 0; i < arr.length; i++)
+                str += arr[i]
+            return str
+        }
+
+        function byId(id) {
+            if(document.createElement) {
+                var _ = document.createElement("div")
+                _ = window[id]
+            }
+            else var _ = window[id]
+            
+            return _
+        }
+    </script>
+</body>
+</html>

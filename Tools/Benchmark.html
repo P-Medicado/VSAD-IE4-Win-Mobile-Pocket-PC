@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Benchmark OOP</title>
+<style type="text/css">
+	body {
+		background-color: #cfc;
+		background-image: -ms-linear-gradient(#09f 0%, #cfc 100%);
+	
+		font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+		margin: auto;
+		width: 700px;
+		margin-top: 4em;
+		font-size: 1.2em;
+	}
+	td {
+		vertical-align:top;
+	}
+	th {
+		text-align:left;	
+	}
+	h4 {
+		margin-bottom:0;
+	}
+</style>
+</head>
+
+<body>
+
+	<h1>
+		OOP JavaScript in Internet Explorer
+	</h1>
+	
+	<div id="outEl">&nbsp;</div>
+	
+	<div>
+		<h4>
+			Test that Classes work.
+		</h4>
+		<input type="button" value="Car" onclick="alert(car.drive() + '<br>')" />
+		<input type="button" value="Truck" onclick="alert(truck.drive() + '<br>')" />
+	</div>
+	
+	<div>
+		<h4>
+			Test creating objects with this-methods vs prototype-methods
+		</h4>
+		<input type="button" value="Car" onclick="test(Car, true)" />
+		<input type="button" value="Truck" onclick="test(Truck, true)" />
+	</div>
+	
+	<div>
+		<h4>
+			Test creating + using objects in both styles.
+		</h4>
+		<input type="button" value="Car" onclick="test(Car, false)" />
+		<input type="button" value="Truck" onclick="test(Truck, false)" />
+	</div>
+
+	<table style="width: 400px;">
+		<tr>
+			<th>
+				Car
+			</th>
+			<th>
+				Truck
+			</th>
+		</tr>
+		<tr>
+			<td><div id="CarEl">&nbsp;</div></td>
+	
+			<td><div id="TruckEl">&nbsp;</div></td>
+		</tr>
+		
+		<tr>
+			<td><div id="Car2El">&nbsp;</div></td>
+	
+			<td><div id="Truck2El">&nbsp;</div></td>
+		</tr>
+	</table>
+
+<script type="text/javascript" language="javascript">
+	alert("hi")
+	var html = "<b>"
+	html += window.navigator.userAgent + "</b><br><br> IE Version: "
+	html += ScriptEngineMajorVersion() + "."
+	html += ScriptEngineMinorVersion() + "."
+	html += ScriptEngineBuildVersion() + "<br><br>"
+	alert(html)
+	html += "has XMLHttpRequest: " + !!(window.XMLHttpRequest) + "<br>"
+	html += "has JSON: " + !!(window.JSON) + "<br>"
+	window["outEl"].innerHTML = html
+	alert("done")
+</script>
+
+<script type="text/javascript" language="javascript">
+	function Car() {
+		this.doors = 4
+		this.wheels = 4
+		this.tire_size = 12	
+		
+		this.drive = function() {
+			return (this.doors * this.wheels) / this.tire_size
+		}
+	}
+	
+	function Truck() {
+		this.doors = 4
+		this.wheels = 4
+		this.tire_size = 12	
+	}
+	Truck.prototype.drive = function() {
+		return (this.doors * this.wheels) / this.tire_size
+	}
+	
+	var car = new Car()
+	var truck = new Truck()
+
+	// ----- end of testable code
+	
+	// ----- start of testing framework
+	
+	var profiler = {
+		Car: { times: 0, arr: [] },
+		Truck: { times: 0, arr: [] },
+		add: function(type, time) {
+			var kind = (""+type).split("(")[0].split(" ")[1]		
+			var obj = this[kind]
+			
+			obj.times++
+			obj.arr.push(time)
+	
+			var total = 0
+			for(var i = 0; i < obj.arr.length; i++) 
+				total += obj.arr[i]			
+			
+			window[kind+"El"].innerHTML = (total / obj.arr.length >> 0)		
+			window[kind+"2El"].innerHTML += time + "<br>"
+		}
+	}
+	
+	function test(type, create_only) {
+		var time = (new Date()).getTime()
+		for(var i = 0; i < 3000; i++) {
+			if(car) var obj = new type()
+			else 	var obj = new type()
+			
+			if(!create_only) obj.drive()
+		}
+		var now = (new Date()).getTime()
+		var result = now - time
+		
+		profiler.add(type, result)
+	}
+</script>
+</body>
+
+</html>
