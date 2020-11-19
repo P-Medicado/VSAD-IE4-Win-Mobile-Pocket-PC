@@ -2,111 +2,116 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>IE Test</title>
-	<style>
-		body {
-			color: black;
-			background-color: white;
-			font-family: sans-serif;
-			font-weight: 300;
-			margin: 0;
-			padding: 3rem;
-		}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IE Test</title>
+<style type="text/css">
+	body {
+		color: black;
+		background-color: white;
+		font-family: sans-serif;
+		font-weight: 300;
+		margin: 0;
+		padding: 3rem;
+	}
 
-		h2 {
-			text-align: center;
-			font-weight: bold;
-			font-size: 3em;
-		}
+	h2 {
+		text-align: center;
+		font-weight: bold;
+		font-size: 3em;
+	}
 
-		p {
-			color: darkgrey;
-			text-align: center;
-			font-family: monospace;
-			font-size: 1rem;
-			line-height: 1.5rem;
-		}
+	p {
+		color: darkgrey;
+		text-align: center;
+		font-family: monospace;
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
 
-		i {
-			font-size: 10px;
-		}
-	</style>
+	i {
+		font-size: 10px;
+	}
+</style>
 </head>
 
 <body>
-	<table>
-		<tr><th>Info</th></tr>
-		<tr>
-			<td><div id="info">&nbsp;</div></td>
-		</tr>
-	</table>
-
-<script type="text/javascript" language="javascript">
 	
-	// Get IE or Edge browser version
-	var version = detectIE()
-	var h2_html = ""
-	var p_html = ""
+	<div id="outEl">&nbsp;</div>
 
-	alert(version)
+	<div><p> </p></div>
 
-	// Inner HTML
-	if (version === false) h2_html += '<s>IE/Edge</s>'
-	else if (version >= 32) h2_html += 'Chromium Edge ' + version
-	else if (version >= 12) h2_html += 'Edge ' + version
-	else h2_html += 'IE ' + version
+	<script type="text/javascript" language="javascript">
 	
-	// add details to debug result
-	p_html += "<br><i>" + window.navigator.userAgent + "</i>"
-
-	var html = "<h2>" + h2_html + "</h2><p>" + p_html + "</p>" 
-	alert(html)
-	window["info"].innerHTML = html
-
-	function detectIE() {
-		var ua = window.navigator.userAgent;
-
-		// Test values; Uncomment to check result …
-		// IE 10
-		// ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-		// IE 11
-		// ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-		// Edge 12 (Spartan)
-		// ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-		// Edge 13
-		// ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
-
-		var msie = ua.indexOf('MSIE ');
-		if (msie > 0) {
-			// IE 10 or older => return version number
-			return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+		// Get IE or Edge browser version
+		var version = detectIE()
+		var h2_html = ""
+		var p_html = ""
+		
+		// Inner HTML
+		if (version === false) h2_html += '<s>IE/Edge</s>'
+		else if (version >= 32) h2_html += 'Chromium Edge ' + version
+		else if (version >= 12) h2_html += 'Edge ' + version
+		else h2_html += 'IE ' + version
+		
+		// add details to debug result
+		p_html += "<br><i>" + window.navigator.userAgent + "</i>"
+	
+		var html = "<h2>" + h2_html + "</h2><p>" + p_html + "</p>" 
+		
+		function run() {
+			var out = window["outEl"]
+			try {
+				out.innerHTML = html
+			} catch (error) {
+				alert(error.name)
+				alert(error.message)
+				alert("hi " + out)
+				alert(out.insertAdjacentHTML)
+			}
 		}
-
-		var trident = ua.indexOf('Trident/');
-		if (trident > 0) {
-			// IE 11 => return version number
-			var rv = ua.indexOf('rv:');
-			return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+		run()
+	
+		function detectIE() {
+			var ua = window.navigator.userAgent;
+	
+			// Test values; Uncomment to check result …
+			// IE 10
+			// ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
+			// IE 11
+			// ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
+			// Edge 12 (Spartan)
+			// ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
+			// Edge 13
+			// ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
+	
+			var msie = ua.indexOf('MSIE ');
+			if (msie > 0) {
+				// IE 10 or older => return version number
+				return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+			}
+	
+			var trident = ua.indexOf('Trident/');
+			if (trident > 0) {
+				// IE 11 => return version number
+				var rv = ua.indexOf('rv:');
+				return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+			}
+	
+			var edge = ua.indexOf('Edge/');
+			if (edge > 0) {
+				// Edge (IE 12+) => return version number
+				return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+			}
+	
+			var edg = ua.indexOf('Edg/');
+			if (edg > 0) {
+				// Chromium Edge (IE 12+) => return version number
+				return parseInt(ua.substring(edg + 4, ua.indexOf('.', edg)), 10);
+			}
+	
+			// other browser
+			return false;
 		}
-
-		var edge = ua.indexOf('Edge/');
-		if (edge > 0) {
-			// Edge (IE 12+) => return version number
-			return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-		}
-
-		var edg = ua.indexOf('Edg/');
-		if (edg > 0) {
-			// Chromium Edge (IE 12+) => return version number
-			return parseInt(ua.substring(edg + 4, ua.indexOf('.', edg)), 10);
-		}
-
-		// other browser
-		return false;
-	}
-</script>
+	</script>
 </body>
-
 </html>

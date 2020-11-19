@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Page-Enter" content="revealTrans(Duration=5.0,Transition=8)">
+    <title>IE4: JS REPL</title>
+    <style>
+        body {
+            background-color: #09f;
+            /* margin: 0; */
+        }
+        a {
+            text-decoration: underline;
+            display: block;
+        }
+        h1 {
+            margin: 0;
+        }
+    
+        .button {
+            /* height: 100%; */
+            background-color: #eee;
+            padding: 4px 8px;
+            margin: 0px 4px;
+            /* color: #09f; */
+        }
+    
+        input {
+            padding: 0;
+            margin: 0px 2px;
+            width: 100%;
+            display: block;
+            max-width: none;
+            box-sizing: border-box;
+        }
+    
+        code {
+            background-color: #eee;
+            color: red;
+            font-weight: bold;
+        }
+    
+        #output-2, #oldput-3 {
+            padding: 0 4px;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <h1>Read Eval Print Loop</h1>
+    <div>
+        <input type="text" id="input-1">
+        <br>
+        <a class="button" onclick="add()">Execute</a>
+        <br>
+    </div>
+    <div>
+        <div>
+            <div id="output-2"> </div>
+            <div id="oldput-3"> </div>
+        </div>
+    </div>
+
+    <input type="button" value="Run" onclick="run()">
+
+    <script>
+
+       	// Get IE or Edge browser version
+        var version = detectIE()
+        var h2_html = ""
+        var p_html = ""
+
+        // Inner HTML
+        if (version === false) h2_html += '<s>IE/Edge</s>'
+        else if (version >= 32) h2_html += 'Chromium Edge ' + version
+        else if (version >= 12) h2_html += 'Edge ' + version
+        else h2_html += 'IE ' + version
+        
+        // add details to debug result
+        p_html += "<br><i>" + window.navigator.userAgent + "</i>"
+
+        var html = "<h2>" + h2_html + "</h2><p>" + p_html + "</p>" 
+        
+        function run() {
+            var p = window["output-2"]
+            try {
+                
+                p.innerHTML = "<p>Hi All!</p>"
+                p.innerHTML += html
+            } catch (error) {
+                alert(error.name)
+                alert(error.message)
+                alert(p)
+                alert(p.insertAdjacentHTML)
+            }
+
+            alert(html)
+
+        }
+
+        function detectIE() {
+            var ua = window.navigator.userAgent;
+
+            // Test values; Uncomment to check result …
+            // IE 10
+            // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
+            // IE 11
+            // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
+            // Edge 12 (Spartan)
+            // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
+            // Edge 13
+            // ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
+
+            var msie = ua.indexOf('MSIE ');
+            if (msie > 0) {
+                // IE 10 or older => return version number
+                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+            }
+
+            var trident = ua.indexOf('Trident/');
+            if (trident > 0) {
+                // IE 11 => return version number
+                var rv = ua.indexOf('rv:');
+                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+            }
+
+            var edge = ua.indexOf('Edge/');
+            if (edge > 0) {
+                // Edge (IE 12+) => return version number
+                return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+            }
+
+            var edg = ua.indexOf('Edg/');
+            if (edg > 0) {
+                // Chromium Edge (IE 12+) => return version number
+                return parseInt(ua.substring(edg + 4, ua.indexOf('.', edg)), 10);
+            }
+
+            // other browser
+            return false;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -11,15 +11,18 @@
             font-weight: bold;
             text-align: center;
         }
+        input {
+            background: white;
+            color: white;
+            border-color: white;
+        }
     </style>
 </head>
 <body>
-	<table>
-		<tr><th>Info</th></tr>
-		<tr>
-			<td><div id="info">&nbsp;</div></td>
-		</tr>
-    </table>
+    
+    <div id="output-2"> </div>
+
+    <div><p> </p></div>
     
     <script type="text/javascript" language="javascript">
         var ieVersion = /*@cc_on (function() { 
@@ -39,20 +42,28 @@
             return (@_jscript_version) 
             })() || @*/ "None"; 
 
-        function start() {
-            alert(ieVersion)
-            alert(jsVersion)
-            
-            if(ieVersion === "None" && jsVersion === "None") {
-                window["h1_ins"].innerHTML += "<h1>Not Internet Explorer :(</h1>"
-                return
-            }
 
-            window["info"].innerHTML = "" +
+        function run() {
+
+            if(ieVersion === "None" && jsVersion === "None") 
+                var html = "<h1>Not Internet Explorer :(</h1>"    
+            else {
+                var html = "" +
                 "<h1>Internet Explorer " + ieVersion + "</h1>" +
                 "<h2>JavaScript Version " + jsVersion + "</h2>" 
+            }
+
+            var p = window["output-2"]
+            try {
+                p.innerHTML = html
+            } catch (error) {
+                alert(error.name)
+                alert(error.message)
+                alert(p)
+                alert(p.insertAdjacentHTML)
+            }
         }
-        start()
+        run()
     </script>
 </body>
 </html>
