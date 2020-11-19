@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,12 +33,15 @@
         <b>JavaScript</b>
         CanIUse Script
     </h1>
+	
+	<table>
+		<tr><th>Info</th></tr>
+		<tr>
+			<td><div id="info">&nbsp;</div></td>
+		</tr>
+	</table>
 
-    <div id="abilities">
-
-    </div>
-
-    <script>
+    <script type="text/javascript" language="javascript">
 
         // class Valid
         function Valid(version, name, category) {
@@ -178,8 +181,13 @@
         // document.write('<script src="script-blah.js">\x3C/script>');
         // immediately write it before the page finishes loading
     
-        var div = byId("abilities")
+        var div = byId("info")
+        var str = ""
+        for (var i = 0; i < valid.items.length; i++) 
+            str += valid.items[i].html()
 
+        alert(str)
+        
         var html = toStr([
             "<table>",
                 "<tr>",
@@ -189,7 +197,7 @@
                     "<th>In Browser</th>",
                 "</tr>",
                 
-                valid.items.map(_ => _.html()).join(""),
+                str,
                 
             "</table>"])
         div.innerHTML = html

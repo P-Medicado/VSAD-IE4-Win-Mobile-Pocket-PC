@@ -82,17 +82,15 @@
 	</table>
 
 <script type="text/javascript" language="javascript">
-	alert("hi")
 	var html = "<b>"
 	html += window.navigator.userAgent + "</b><br><br> IE Version: "
 	html += ScriptEngineMajorVersion() + "."
 	html += ScriptEngineMinorVersion() + "."
 	html += ScriptEngineBuildVersion() + "<br><br>"
-	alert(html)
 	html += "has XMLHttpRequest: " + !!(window.XMLHttpRequest) + "<br>"
+	html += "has ActiveXObject: " + !!(window.ActiveXObject) + "<br>"
 	html += "has JSON: " + !!(window.JSON) + "<br>"
 	window["outEl"].innerHTML = html
-	alert("done")
 </script>
 
 <script type="text/javascript" language="javascript">
