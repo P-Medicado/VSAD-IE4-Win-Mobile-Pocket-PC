@@ -33,15 +33,29 @@
         <b>JavaScript</b>
         CanIUse Script
     </h1>
-	
-	<table>
-		<tr><th>Info</th></tr>
-		<tr>
-			<td><div id="info">&nbsp;</div></td>
-		</tr>
-	</table>
+    
+    <div id="outEl">&nbsp;</div>
+
+    <div><p> </p></div>
 
     <script type="text/javascript" language="javascript">
+
+        function toStr(arr) {
+            var str = ""
+            for (var i = 0; i < arr.length; i++)
+                str += arr[i]
+            return str
+        }
+
+        function byId(id) {
+            if(document.createElement) {
+                var _ = document.createElement("div")
+                _ = window[id]
+            }
+            else var _ = window[id]
+            
+            return _
+        }
 
         // class Valid
         function Valid(version, name, category) {
@@ -51,14 +65,22 @@
             this.value = true
         }
         Valid.prototype.html = function() {
-            return toStr([
-                "<tr>",
-                    "<td>",this.category,"</td>",
-                    "<td>",this.version,"</td>",
-                    "<td>",this.name,"</td>",
-                    "<td class='",this.value ? 'on' : 'off',"' >",this.value,"</td>",
-                "</tr>"
-            ])
+            try {
+                var css = this.value ? 'on' : 'off'
+                return toStr([
+                    "<tr>",
+                        "<td>",this.category,"</td>",
+                        "<td>",this.version,"</td>",
+                        "<td>",this.name,"</td>",
+                        "<td class='",css,"' >",this.value,"</td>",
+                    "</tr>"
+                ])
+            } catch (error) {
+                alert(error.name)
+                alert(error.message)
+                throw "hi"
+            }
+            
         }
         
         function V(version, category, name) {
@@ -101,7 +123,7 @@
 
                 V(4,"RGX","Regex"),
                 V("ES5","RGX","Literal Flags"),
-                V("Unknown","RGX","Look Behind"),
+                V("Unknown","RGX","Look Behind")
             ],
             id: 0,
             no: function() {
@@ -139,6 +161,8 @@
         catch (e) { valid.no() }
         valid.x()
 
+        // alert(valid.id)
+
         if(![].join) valid.no()
         valid.x()
         if(![].sort) valid.no()
@@ -149,6 +173,8 @@
         valid.x()
         if(![].flat) valid.no()
         valid.x()
+
+        // alert(valid.id)
 
         try { Function('with(Math) PI') }
         catch (e) { valid.no() }
@@ -169,10 +195,10 @@
         try { RegExp('(new RegExp("ab+c", "i")).exec("");') }
         catch (e) { valid.no() } 
         valid.x()
-        try { RegExp('new RegExp(/ab+c/, "i");') }
+        try { RegExp('new RegExp(/ab+c/, "i").exec("");') }
         catch (e) { valid.no() }
         valid.x()
-        try { RegExp('new RegExp("(?<=)");') }
+        try { RegExp('new RegExp("(?<=)").exec("");') }
         catch (e) { valid.no() }
         valid.x()
         
@@ -180,12 +206,11 @@
         // document.write('<script src="script-blah.js">\x3C/script>');
         // immediately write it before the page finishes loading
     
-        var div = byId("info")
         var str = ""
         for (var i = 0; i < valid.items.length; i++) 
-            str += valid.items[i].html()
+            str += valid.items[i].html()   
 
-        alert(str)
+        var div = byId("outEl")
 
         var html = toStr([
             "<table>",
@@ -200,23 +225,6 @@
                 
             "</table>"])
         div.innerHTML = html
-
-        function toStr(arr) {
-            var str = ""
-            for (var i = 0; i < arr.length; i++)
-                str += arr[i]
-            return str
-        }
-
-        function byId(id) {
-            if(document.createElement) {
-                var _ = document.createElement("div")
-                _ = window[id]
-            }
-            else var _ = window[id]
-            
-            return _
-        }
     </script>
 </body>
 </html>
