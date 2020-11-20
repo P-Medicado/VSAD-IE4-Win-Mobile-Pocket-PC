@@ -103,10 +103,17 @@
 
         // if(![].join) alert("array lits can't join")
 
-        return [
+        return toStr([
             "<td ",p_class,"><div id='td_",
             p_id,"'><a href='#' ",p_color," onclick='tap(",
-            p_id,")'>&nbsp;</a></td>"].join("")
+            p_id,")'>&nbsp;</a></td>"]) // .join("")
+    }
+
+    function toStr(arr) {
+        var str = ""
+        for (var i = 0; i < arr.length; i++) 
+            str += arr[i]
+        return str            
     }
 
     function tap(id) {

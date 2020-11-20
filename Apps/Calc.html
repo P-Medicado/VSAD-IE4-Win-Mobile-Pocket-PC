@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <script src="../Res/lib/blank.js"></script>
     <style>
         body {
             background-color: #ff9;
@@ -34,7 +33,43 @@
         }
     </style>
 </head>
+<body>
+    <h1> Calculator </h1>
+
+    <input type="number" value="37" name="" id="two"> <br>
+    <input type="number" value="42" name="" id="one"> <br>
+    
+    <br><hr><br>
+    
+    <table>
+        <tr>
+            <td>
+                <input type="button" value="Add" onclick="alert(math('add'))">
+            </td>
+            <td>
+                <input type="button" value="Subtract" onclick="alert(math('sub'))">
+            </td>
+            <td>
+                <input type="button" value="Multiply" onclick="alert(math('mul'))">
+            </td>
+            <td>
+                <input type="button" value="Divide" onclick="alert(math('div'))">
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <div id="answer"> </div>
+
+    <div><p> </p></div>
+
 <script>
+    window.onerror = function(params) {
+        alert(params)
+    }
+</script>
+<script type="text/javascript" language="javascript">
 
     function example_function() {
         var add_one = +inpt("add_in").value
@@ -61,37 +96,27 @@
     // overrides window.alert JavaScript API
     // 
     // demos overriding capability.
+    
     function alert(str) {
-        window["answer"].innerHTML = 
-            str + "<br>" + window["answer"].innerHTML
+        var ans = window["answer"]
+        ans.innerHTML = str + "<br>" + ans.innerHTML
         // .insertAdjacentHTML("afterBegin", str + "<hr>")
     }
 
 </script>
-<body>
-    <h1>
-        Calculator
-    </h1>
-    <input type="number" value="37" name="" id="two"> <br>
-    <input type="number" value="42" name="" id="one">
-    <br><br><hr><br>
-    <table>
-        <tr>
-            <td>
-                <a href="#" onclick="alert(math('add'))">Add</a>
-            </td>
-            <td>
-                <a href="#" onclick="alert(math('sub'))">Subtract</a>
-            </td>
-            <td>
-                <a href="#" onclick="alert(math('mul'))">Multiply</a>
-            </td>
-            <td>
-                <a href="#" onclick="alert(math('div'))">Divide</a>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <div id="answer"></div>
+<script>
+    function inpt(id) {
+        if(document.createElement) {
+            var _ = document.createElement("input")
+            _ = window[id]
+        }
+        else var _ = window[id]
+        
+        return _
+    }
+    function num(id) {
+        return  +inpt(id).value
+    }
+</script>
 </body>
 </html>

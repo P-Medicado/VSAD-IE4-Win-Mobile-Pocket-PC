@@ -2,6 +2,8 @@
     "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clock</title>
     <style>
         body {
@@ -34,9 +36,9 @@
         <div>
             <div id="output-2">__:__:__ __</div>
             <br>
-            <a id="start" onclick="clock_run = true; start()">Start Clock</a> 
+            <input type="button" id="start" value="Start Clock" onclick="clock_run = true; start()">
             <br>
-            <a id="stop" onclick="clock_run = false">Stop Clock</a>
+            <input type="button" id="stop" value="Stop Clock" onclick="clock_run = false">
         </div>
     </div>
 </body>
