@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,13 +18,19 @@
         }
     </style>
 </head>
+
 <body>
     
     <div id="output-2"> </div>
 
     <div><p> </p></div>
     
-    <script type="text/javascript" language="javascript">
+    <script>
+        
+        // html += ScriptEngineMajorVersion() + "."
+        // html += ScriptEngineMinorVersion() + "."
+        // html += ScriptEngineBuildVersion() + "<br><br>"
+
         var ieVersion = /*@cc_on (function() { 
             switch(@_jscript_version) {
                 case 1.0: return 3; 
@@ -38,6 +44,7 @@
                 case 9: return 9; 
                 case 10: return 10;
             }})() || @*/ "None"; 
+
         var jsVersion = /*@cc_on (function() { 
             return (@_jscript_version) 
             })() || @*/ "None"; 
@@ -47,6 +54,7 @@
 
             if(ieVersion === "None" && jsVersion === "None") 
                 var html = "<h1>Not Internet Explorer :(</h1>"    
+
             else {
                 var html = "" +
                 "<h1>Internet Explorer " + ieVersion + "</h1>" +
@@ -54,16 +62,9 @@
             }
 
             var p = window["output-2"]
-            try {
-                p.innerHTML = html
-            } catch (error) {
-                alert(error.name)
-                alert(error.message)
-                alert(p)
-                alert(p.insertAdjacentHTML)
-            }
+
+            p.innerHTML = html
         }
         run()
     </script>
 </body>
-</html>

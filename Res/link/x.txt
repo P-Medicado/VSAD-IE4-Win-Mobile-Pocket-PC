@@ -1,9 +1,0 @@
-
-// var piece = {
-//     pawn: "♟",
-//     bishop: "♝",
-//     rook: "♜",
-//     king: "♚",
-//     queen: "♛",
-//     knight: "♞",
-// }
