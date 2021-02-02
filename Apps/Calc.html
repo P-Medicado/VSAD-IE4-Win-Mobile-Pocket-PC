@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,59 +62,51 @@
 
     <div><p> </p></div>
 
-<script>
-    window.onerror = function(params) {
-        alert(params)
-    }
-</script>
-<script type="text/javascript" language="javascript">
-
-    function example_function() {
-        var add_one = +inpt("add_in").value
-        var add_two = +inpt("add_out").value
-
-        alert("Sum is: " + (add_one + add_two))
-        document.write('<input type="number" value="42" name="" id="one">')
-    }
-
-    function math(key) {
-        var a = "one"
-        var b = "two"
-        switch (key) {
-            case "add": return num(a) + num(b)
-            case "sub": return num(a) - num(b)
-            case "mul": return num(a) * num(b)
-            case "div": return num(a) / num(b)
-        
-            default:
-                break;
+    <script>
+        window.onerror = function(params) {
+            alert(params)
         }
-    }
+    </script>
 
-    // overrides window.alert JavaScript API
-    // 
-    // demos overriding capability.
-    
-    function alert(str) {
-        var ans = window["answer"]
-        ans.innerHTML = str + "<br>" + ans.innerHTML
-        // .insertAdjacentHTML("afterBegin", str + "<hr>")
-    }
-
-</script>
-<script>
-    function inpt(id) {
-        if(document.createElement) {
-            var _ = document.createElement("input")
-            _ = window[id]
+    <script>
+        function inpt(id) {
+            if(document.createElement) {
+                var _ = document.createElement("input")
+                _ = window[id]
+            }
+            else var _ = window[id]
+            
+            return _
         }
-        else var _ = window[id]
+        function num(id) {
+            return  +inpt(id).value
+        }
+    </script>
+    <script>
+
+        function math(key) {
+            var a = "one"
+            var b = "two"
+            switch (key) {
+                case "add": return num(a) + num(b)
+                case "sub": return num(a) - num(b)
+                case "mul": return num(a) * num(b)
+                case "div": return num(a) / num(b)
+            
+                default:
+                    break;
+            }
+        }
+
+        // overrides window.alert JavaScript API
+        // 
+        // demos overriding capability.
         
-        return _
-    }
-    function num(id) {
-        return  +inpt(id).value
-    }
-</script>
+        function alert(str) {
+            var ans = window["answer"]
+            ans.innerHTML = str + "<br>" + ans.innerHTML
+            // .insertAdjacentHTML("afterBegin", str + "<hr>")
+        }
+
+    </script>
 </body>
-</html>

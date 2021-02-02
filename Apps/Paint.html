@@ -1,13 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paint</title>
-    <link rel="stylesheet" href="../Res/css/td-btn.css">
-    <!-- <script src="./lib/blank.js"></script> -->
-    <!-- <script src="./link/chess.js"></script> -->
     <style>
+        td.btn {
+            padding: 0;
+            width: 50%;
+            vertical-align: middle;
+            padding: 1em;
+            text-align: center; 
+        }
+        td.btn a {
+            display: block;
+            color: black;
+            padding: 1em;
+            background: yellow;
+            outline: none;
+        }
+        td.btn a:focus {
+            outline: none;
+            border: 1px solid black;
+        }
+        td.btn a:active {
+            outline: none;
+            background: #eeee00;
+            border: 1px solid black;
+        }
+
+        tr.thirds td {
+            width: 33.333%;
+        }
         body {
             margin: 0;
             background: #09f;
@@ -65,6 +87,7 @@
         }
     </style>
 </head>
+
 <script>
     var side = 16
     var height = (window.screen.width - 20) / 16 >> 0
@@ -130,6 +153,7 @@
         return "style='background: "+rgb+";'"
     }
 </script>
+
 <body id="body">
 
     <div id="board" class="board"></div>
@@ -154,4 +178,3 @@
 <script>
     catchable(start)
 </script>
-</html>
