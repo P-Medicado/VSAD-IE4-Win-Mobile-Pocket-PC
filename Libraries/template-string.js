@@ -1,3 +1,4 @@
+
 /**
  * Create a multiline string using the commented contents 
  * of a function.
