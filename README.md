@@ -1,16 +1,25 @@
-<h1 align="center"> 🐢 &nbsp; Internet Explorer for Mobile + JavaScript &nbsp; 🐚 </h1>
+<h1 align="center"> <small>Pocket Internet Explorer<small> <br> JavaScript Web Apps </h1>
   
 
 <p align="center">  
 <i>
-We're gathering info for writing small web apps <br> for versions of Internet Explorer for mobile devices.
+We're preserving tutorials for writing cross-browser JavaScript which runs 
+on modern browsers, but maintains full compatibility for browsers released 
+in 2001.
 <br><br>
-We fully support IE for Pocket PC 4.01 to now!
+IE 5.5, IE6, pIE, Pocket Internet Explorer
 <br><br>
 </i>
 </p>
   
   
+**What is possible?**  
+1. Interacting against the DOM, changing HTML element's innerHTML, textContent, etc.
+2. onclick events.
+3. Classes.
+4. Multiline string.
+5. Template strings.
+6. Objects w functions/methods.
   
 ***
    
