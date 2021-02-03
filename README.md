@@ -20,6 +20,8 @@ IE 5.5, IE6, pIE, Pocket Internet Explorer
 4. Multiline string.
 5. Template strings.
 6. Objects w functions/methods.
+7. Parse JSON / XML.
+8. Async await pattern.
   
 ***
    
