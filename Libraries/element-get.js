@@ -19,5 +19,21 @@ var GetEl = {
      */
     a: function(id) {
         return window[id]
-    },
+    }
 }
+
+void (function(){
+    if(window.document && window.document.getElementById) return
+    
+    if(!window.document) window.document = {}
+    
+    window.document.getElementById = function(id) {
+        return window[id]
+    }
+})()
+void (function(){
+	if (String.prototype.trim) return 
+	String.prototype.trim = function() {
+		return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '')
+	}
+})()
