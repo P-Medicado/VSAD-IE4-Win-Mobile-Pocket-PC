@@ -12,16 +12,20 @@ function multiline(func) {
 
     return str
 }
-
 /**
  * Creates a template-literal-like string using the commented 
  * contents of a function.
  * @param {Function} func A function to contain multiline template literal-like text.
  * @returns {string}
  */
-function template(func) {
+function template(func, optional_evaller) {
+    /// <param name="func" type="String"></param>
+    /// <returns type="String" />
+    
     var str = multiline(func)
     var strings = str.split("${")
+	var evaller = func.toString().indexOf("return eval(") > 0 ? func : function(str) { return eval(str) }
+	evaller = optional_evaller || evaller
 
     for (var i = 1; i < strings.length; i++) {
         var js = strings[i]
@@ -34,7 +38,7 @@ function template(func) {
         while (js.indexOf("}", end + 1) > 0)
         // end = js.lastIndexOf("}")
         
-        strings[i] = eval(js.slice(0, end)) + js.slice(end + 1)
+        strings[i] = evaller(js.slice(0, end)) + js.slice(end + 1)
     }
-    return strings.join("\n")
+    return strings.join("")
 }
